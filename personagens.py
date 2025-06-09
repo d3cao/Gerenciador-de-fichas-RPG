@@ -1,4 +1,5 @@
 from random import random
+import os
 
 class personagem:
     def __init__(self):
@@ -54,15 +55,25 @@ class criador_personagem(personagem):
 
     def definir_atributos(self):
         valores = self.roll()
+        atributos = [
+            'forca',
+            'destreza',
+            'constituicao',
+            'inteligencia',
+            'sabedoria',
+            'carisma'
+        ]
+        self.nome = input('Nome do personagem : ')
         print(f'Os valores disponiveis são:', end=' ')
         print(', '.join(f'{num}' for num in valores))
-        self.nome = input('Nome: ')
-        self.forca = int(input('Força: '))
-        self.destreza = int(input('Destreza: '))
-        self.constituicao = int(input('Constituição: '))
-        self.inteligencia = int(input('Inteligência: '))
-        self.sabedoria = int(input('Sabedoria: '))
-        self.carisma = int(input('Carisma: '))
+        for i in range(len(valores)):
+            os.system('clear')
+            print(f'Qual status você deseja atribuir o valor: {valores[i]} ')
+            for j in range(len(atributos)):
+                print(f'{j}-{atributos[j]}')
+            a = int(input('Digite o indice do status escolhido : '))
+            setattr(self, atributos[a], valores[i])
+            atributos.remove(atributos[a])
 
     def roll(self):
         valores = []
