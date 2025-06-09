@@ -1,3 +1,4 @@
+import ficha
 import personagens
 import os
 import json
@@ -28,6 +29,7 @@ class interface:
                     personagem.inteligencia = escolhido['Inteligencia']
                     personagem.sabedoria = escolhido['Sabedoria']
                     personagem.carisma = escolhido['Carisma']
+                    personagem.pericias = escolhido['Pericias']
                     self.caracters.append(personagem)
             except json.JSONDecodeError:
                 print('Erro ao carregar os personagens')
@@ -41,10 +43,10 @@ class interface:
                 'Constituicao' : escolhido.constituicao,
                 'Inteligencia' : escolhido.inteligencia,
                 'Sabedoria' : escolhido.sabedoria,
-                'Carisma' : escolhido.carisma
+                'Carisma' : escolhido.carisma,
+                'Pericias': escolhido.pericias
             }
             self.info.append(dados)
-        
 
     def salvar_personagens(self):
         self.transform()
@@ -54,6 +56,7 @@ class interface:
                 json.dump(dados, arquivo, indent=4)
         except json.JSONDecodeError:
             print('Erro ao salvar os personagens')
+        self.retorno()
 
     def exit(self):
         print('Até mais...')
@@ -63,8 +66,11 @@ class interface:
         self.iniciar()
 
     def mostrar_ficha(self):
+        print(f'Indice do ultimo personagem {len(self.caracters)-1}')
         valor = int(input('Digite o valor do personagem para checagem (a partir do 0): '))
-        print(self.caracters[valor])
+        tela = ficha.ficha_interativa(self.caracters[valor])
+        os.system('clear')
+        tela.mostrar_fic()
         self.retorno()
 
     def criar_personagem(self):
@@ -73,6 +79,10 @@ class interface:
         print('Bem-vindo ao criador de personagem')
         print('-'*34)
         maker.definir_atributos()
+        a = input('Qual a raça escolhida ?')
+        a = maker.racas.get(a)
+        if a:
+            a()
         self.caracters.append(maker)
         self.retorno()
 
@@ -84,7 +94,7 @@ class interface:
         print('1 - Criar personagem')
         print('2 - Ver fichas')
         print('3 - Salvar personagens')
-        print('3 - Finalizar o programa')
+        print('4 - Finalizar o programa')
         valor = int(input())
         valor = self.opção.get(valor)
         if valor:
@@ -92,7 +102,6 @@ class interface:
         else :
             print('opção invalida')
             interface.iniciar()
-
 
 frame = interface()
 
