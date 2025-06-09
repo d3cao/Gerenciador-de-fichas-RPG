@@ -72,6 +72,7 @@ class interface:
         os.system('clear')
         tela.mostrar_fic()
         self.retorno()
+        
 
     def criar_personagem(self):
         maker = personagens.criador_personagem()
