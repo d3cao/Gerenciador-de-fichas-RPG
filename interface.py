@@ -80,7 +80,7 @@ class interface:
         print('Bem-vindo ao criador de personagem')
         print('-'*34)
         maker.definir_atributos()
-        a = input('Qual a raça escolhida ?')
+        a = input('Qual a raça escolhida ?').lower()
         a = maker.racas.get(a)
         if a:
             a()

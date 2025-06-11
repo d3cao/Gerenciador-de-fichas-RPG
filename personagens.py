@@ -47,7 +47,7 @@ class criador_personagem(personagem):
     def __init__(self):
         super().__init__()
         self.racas = {
-            'Humano' : self.humano
+            'humano' : self.humano
         }
 
     def __str__(self):
